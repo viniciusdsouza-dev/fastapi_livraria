@@ -11,6 +11,15 @@ user_id_counter = 1
 
 @router.post("/", response_model=User)
 def create_user(user: UserCreate):
+    """
+    Cria um novo Usuário.
+    
+    Args:
+        usuário (UserCreate): O objeto contendo os dados do usuário criado
+        
+    Returns
+        lusuário: O objeto do usuário recém-criado com um ID gerado.
+    """
     global user_id_counter
 
     new_user = User(id=user_id_counter, **user.model_dump())
@@ -22,4 +31,10 @@ def create_user(user: UserCreate):
 
 @router.get("/", response_model=List[User])
 def list_users():
+    """
+    Lista todos os usuários cadastrados.
+    
+    Returns:
+        List[User]: Uma lista de objetos de usuários cadastrados.
+    """
     return users

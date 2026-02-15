@@ -8,6 +8,26 @@ router = APIRouter(prefix="/cart", tags=["Cart"])
 
 @router.post("/add/{user_id}/{book_id}")
 def add_to_cart(user_id: int, book_id: int):
+    """
+    Adiciona um livro ao carrinho de um usuário.
+
+    Esta rota realiza as seguintes validações:
+    - Verifica se o usuário está cadastrado.
+    - Verifica se o livro existe.
+    - Caso o usuário já possua um carrinho, adiciona o livro ao carrinho existente.
+    - Caso não possua, cria um novo carrinho para o usuário.
+
+    Args:
+        user_id (int): Identificador do usuário.
+        book_id (int): Identificador do livro a ser adicionado.
+
+    Raises:
+        HTTPException 401: Se o usuário não estiver cadastrado.
+        HTTPException 404: Se o livro não for encontrado.
+
+    Returns:
+        dict: Mensagem confirmando que o livro foi adicionado ao carrinho.
+    """
 
     # Verifica se o usuário existe
     if not any(user.id == user_id for user in users):
